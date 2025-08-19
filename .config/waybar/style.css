@@ -1,0 +1,379 @@
+/* Keyframes */
+@keyframes blink-critical {
+	to {
+		background-color: @critical;
+	}
+}
+
+@keyframes pulse {
+    from { opacity: 1; }
+    to { opacity: 0.6; }
+}
+
+/* Colors (gruvbox) */
+@define-color black	#282828;
+@define-color red	#cc241d;
+@define-color green	#98971a;
+@define-color yellow	#d79921;
+@define-color blue	#458588;
+@define-color purple	#b16286;
+@define-color aqua	#689d6a;
+@define-color gray	#a89984;
+@define-color brgray	#928374;
+@define-color brred	#fb4934;
+@define-color brgreen	#b8bb26;
+@define-color bryellow	#fabd2f;
+@define-color brblue	#83a598;
+@define-color brpurple	#d3869b;
+@define-color braqua	#8ec07c;
+@define-color white	#ebdbb2;
+@define-color bg2	#504945;
+
+@define-color warning 	@bryellow;
+@define-color critical	@red;
+@define-color mode	@black;
+@define-color unfocused	@bg2;
+@define-color focused	@braqua;
+@define-color inactive	@purple;
+@define-color sound	@brpurple;
+@define-color network	@purple;
+@define-color memory	@braqua;
+@define-color cpu	@green;
+@define-color temp	@brgreen;
+@define-color layout	@bryellow;
+@define-color battery	@aqua;
+@define-color date	@black;
+@define-color time	@white;
+
+/* Reset all styles */
+* {
+	border: none;
+	border-radius: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	text-shadow: none;
+	icon-shadow: none;
+}
+
+/* The whole bar */
+#waybar {
+	background: rgba(0, 0, 0, 0);
+	color: @white;
+	font-family: JetBrains Mono, Siji;
+	font-size: 10pt;
+}
+
+/* Each module */
+#battery,
+#clock,
+#cpu,
+#language,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#temperature,
+#tray,
+#backlight,
+#idle_inhibitor,
+#disk,
+#user,
+#mpris,
+#scratchpad,
+#custom-media,
+#custom-syncthing {
+	padding-left: 8pt;
+	padding-right: 8pt;
+}
+
+/* Each critical module */
+#mode,
+#memory.critical,
+#cpu.critical,
+#temperature.critical,
+#battery.critical.discharging {
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-name: blink-critical;
+	animation-duration: 1s;
+}
+
+/* Each warning */
+#network.disconnected,
+#memory.warning,
+#cpu.warning,
+#temperature.warning,
+#battery.warning.discharging {
+	color: @warning;
+}
+
+/* Workspaces */
+#workspaces {
+	background: @unfocused;
+}
+
+#workspaces button {
+	padding-left: 5pt;
+	padding-right: 5pt;
+	color: @white;
+	background: @unfocused;
+}
+
+#workspaces button.visible {
+	color: @white;
+	background: @inactive;
+}
+
+#workspaces button.focused {
+	color: @black;
+	background: @focused;
+}
+
+#workspaces button.urgent {
+	color: @black;
+	background: @warning;
+}
+
+#workspaces button:hover {
+	background: @black;
+	color: @white;
+}
+
+/* Mode */
+#mode {
+	color: @white;
+	background: @mode;
+}
+
+/* Scratchpad */
+#scratchpad {
+	background: @layout;
+	color: @black;
+}
+
+/* Custom media */
+#custom-media {
+	background: @bryellow;
+	color: @black;
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+	background: @red;
+	color: @white;
+}
+
+/* Custom syncthing module */
+#custom-syncthing {
+    background-color: @brblue;
+    color: @white;
+}
+
+#custom-syncthing.idle {
+    color: @brgreen;
+    background-color: @brblue;
+}
+
+#custom-syncthing.syncing {
+    color: @bryellow;
+    background-color: @purple;
+    animation: pulse 2s ease-in-out infinite alternate;
+}
+
+#custom-syncthing.error {
+    color: @brred;
+    background-color: @purple;
+    animation: pulse 1s ease-in-out infinite alternate;
+}
+
+#custom-syncthing.stopped {
+    color: @white;
+    background-color: @red;
+    font-weight: bold;
+}
+
+/* Audio */
+#pulseaudio {
+	background: @sound;
+	color: @black;
+}
+
+/* Network */
+#network {
+	background: @network;
+	color: @white;
+}
+
+/* Memory */
+#memory {
+	background: @memory;
+	color: @black;
+}
+
+/* CPU */
+#cpu {
+	background: @cpu;
+	color: @white;
+}
+
+/* Temperature */
+#temperature {
+	background: @temp;
+	color: @black;
+}
+
+/* Battery */
+#battery {
+	background: @battery;
+	color: @white;
+}
+
+#battery#bat2 {
+	background: @braqua;
+	color: @black;
+}
+
+/* Clock */
+#clock {
+	background: @date;
+	color: @white;
+}
+
+/* Tray */
+#tray {
+	background: @bg2;
+	color: @white;
+}
+
+/* Powerline separators using your gruvbox colors */
+#custom-arrow1 {
+  font-size:20pt;
+  color: @bg2;
+  background: @date;
+}
+
+
+#custom-arrow2 {
+	font-size: 20pt;
+	color: @date;
+	background: @battery;
+}
+
+#custom-arrow3 {
+	font-size: 20pt;
+	color: @battery;
+	background: @temp;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow4 {
+	font-size: 20pt;
+	color: @temp;
+	background: @memory;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow5 {
+	font-size: 20pt;
+	color: @memory;
+	background: @cpu;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow6 {
+	font-size: 20pt;
+	color: @cpu;
+	background: @pulseaudio;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow7 {
+	font-size: 20pt;
+	color: @pulseaudio;
+	background: @brblue;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow8 {
+	font-size: 20pt;
+	color: @sound;
+	background: @cpu;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow9 {
+	font-size: 20pt;
+	color: @cpu;
+	background: @memory;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow10 {
+	font-size: 20pt;
+	color: @memory;
+	background: @temp;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow11 {
+	font-size: 20pt;
+	color: @temp;
+	background: @battery;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow12 {
+	font-size: 20pt;
+	color: @battery;
+	background: @braqua;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow13 {
+	font-size: 20pt;
+	color: @braqua;
+	background: @date;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow14 {
+	font-size: 20pt;
+	color: @date;
+	background: @bg2;
+	padding: 0;
+	margin: 0;
+}
+
+#custom-arrow15 {
+	font-size: 20pt;
+	color: @bg2;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+}
+
+/* Tooltip styling */
+tooltip {
+    background-color: @black;
+    border: 1px solid @blue;
+    border-radius: 5px;
+    color: @white;
+}
+
+tooltip label {
+    color: @white;
+}
